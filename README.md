@@ -11,10 +11,17 @@ Multi-container auth stack with nginx load balancer, two React frontends, two Fa
 | fe-app    | React + Vite + TS + Redux + Bootstrap | `/app`     |
 | bff-auth  | FastAPI + MySQL + authlib + Redis | `/api/auth/*` |
 | bff-app   | FastAPI + MySQL                | `/api/app/*`      |
+| bff-sms   | FastAPI + Mobile Message API   | `/api/app/send-message` |
 | MySQL     | 8                              | `:3306`           |
 | Redis     | 7                              | `:6379`           |
 
 ## Quick start
+
+Copy the environment template and set your SMS API credentials:
+
+```bash
+cp .env.example .env
+```
 
 ```bash
 docker compose up --build
@@ -77,6 +84,7 @@ login/
 ├── mysql/
 ├── bff-auth/
 ├── bff-app/
+├── bff-sms/
 ├── fe-login/
 └── fe-app/
 ```

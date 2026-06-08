@@ -49,6 +49,17 @@ services:
       redis:
         condition: service_healthy
 
+  bff-sms:
+    build: ./bff-sms
+    env_file:
+      - .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      SESSION_COOKIE_NAME: session_id
+    depends_on:
+      redis:
+        condition: service_healthy
+
   fe-login:
     build: ./fe-login
 
@@ -66,3 +77,4 @@ services:
       - fe-app
       - bff-auth
       - bff-app
+      - bff-sms
