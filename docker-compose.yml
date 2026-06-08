@@ -1,0 +1,68 @@
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  bff-auth:
+    build: ./bff-auth
+    environment:
+      DATABASE_URL: mysql+pymysql://root:root@mysql:3306/auth_db
+      REDIS_URL: redis://redis:6379/0
+      SESSION_COOKIE_NAME: session_id
+      SESSION_TTL_SECONDS: "3600"
+      COOKIE_SECURE: "false"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  bff-app:
+    build: ./bff-app
+    environment:
+      DATABASE_URL: mysql+pymysql://root:root@mysql:3306/app_db
+      REDIS_URL: redis://redis:6379/0
+      SESSION_COOKIE_NAME: session_id
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  fe-login:
+    build: ./fe-login
+
+  fe-app:
+    build: ./fe-app
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - fe-login
+      - fe-app
+      - bff-auth
+      - bff-app
