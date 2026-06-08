@@ -1,0 +1,22 @@
+name: login
+description: AWS infrastructure for the login monorepo (ECS Fargate + ALB + RDS + ElastiCache)
+runtime:
+  name: nodejs
+  options:
+    typescript: true
+config:
+  login:environment:
+    description: Environment label (dev, staging, prod)
+    default: dev
+  login:imageTag:
+    description: Container image tag pushed to ECR
+    default: latest
+  login:dbPassword:
+    description: RDS master password (use `pulumi config set --secret login:dbPassword <value>`)
+    secret: true
+  login:domainName:
+    description: Optional custom domain for ACM certificate and ALB DNS alias
+    default: ""
+  login:cookieSecure:
+    description: Set Secure flag on session cookies (true behind HTTPS)
+    default: "true"

@@ -1,0 +1,21 @@
+{
+  "name": "infra",
+  "version": "1.0.0",
+  "main": "bin/index.js",
+  "scripts": {
+    "build": "tsc",
+    "preview": "pulumi preview",
+    "up": "pulumi up"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@pulumi/aws": "^7.32.0",
+    "@pulumi/awsx": "^3.6.0",
+    "@pulumi/pulumi": "^3.245.0",
+    "@types/node": "^25.9.2",
+    "typescript": "^6.0.3"
+  }
+}

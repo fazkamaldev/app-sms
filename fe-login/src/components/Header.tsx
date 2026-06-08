@@ -3,9 +3,11 @@ import Navbar from 'react-bootstrap/Navbar'
 
 export default function Header() {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/login">Login</Navbar.Brand>
+        <Navbar.Brand href="/login" className="brand-dymocks">
+          Dymocks Penrith
+        </Navbar.Brand>
       </Container>
     </Navbar>
   )

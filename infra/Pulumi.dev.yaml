@@ -1,0 +1,7 @@
+config:
+  aws:region: ap-southeast-2
+  login:environment: dev
+  login:imageTag: latest
+  login:cookieSecure: "true"
+  login:dbPassword:
+    secure: AAABADZxeTQ33YoWoyT3r2Q1chAE2jUPSCJyOfXvKAUA8RbY/wAioEhk
