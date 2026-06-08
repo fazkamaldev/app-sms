@@ -1,5 +1,6 @@
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
+import SendMessageForm from './SendMessageForm'
 
 interface AppLayoutProps {
   username: string
@@ -21,6 +22,7 @@ export default function AppLayout({ username }: AppLayoutProps) {
         <Container>
           <h1>Welcome to the app</h1>
           <p className="text-muted">You are authenticated via session cookie.</p>
+          <SendMessageForm />
         </Container>
       </main>
 
